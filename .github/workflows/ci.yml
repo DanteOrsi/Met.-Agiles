@@ -35,6 +35,9 @@ jobs:
       run: |
         coverage run -m unittest test_calculadora.py
 
-    - name: Mostrar reporte de Code Coverage
+- name: Mostrar reporte de Code Coverage visual
       run: |
+        # Esto imprime en la consola para el log
         coverage report -m
+        # Esto genera una tabla visual y hermosa en el dashboard del Action
+        coverage report --format=markdown >> $GITHUB_STEP_SUMMARY
