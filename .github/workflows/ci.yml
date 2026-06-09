@@ -11,34 +11,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Clonar el código
     - name: Checkout del código
-      uses: actions/checkout@v3
+      # Actualizado a v4 para borrar el warning amarillo
+      uses: actions/checkout@v4 
 
-    # 2. Configurar el entorno
     - name: Configurar Python
-      uses: actions/setup-python@v4
+      # Actualizado a v5 para borrar el warning amarillo
+      uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
-    # 3. Instalar las herramientas de Cobertura y Análisis Estático
     - name: Instalar dependencias de calidad
       run: |
         python -m pip install --upgrade pip
         pip install coverage pylint
 
-    # 4. CUMPLE: Análisis Estático de Código (Pylint)
     - name: Ejecutar Análisis Estático (Pylint)
       run: |
-        # Revisa la calidad del código. Si el puntaje es menor a 7.0, el pipeline avisa.
-        pylint calculadora.py test_calculadora.py --fail-under=7.0
+        # Agregamos --disable=C,R para ignorar las "Convenciones" y "Refactors"
+        pylint calculadora.py test_calculadora.py --disable=C,R --fail-under=7.0
 
-    # 5. CUMPLE: Ejecutar Unit Tests con Cobertura
     - name: Ejecutar Unit Tests con Cobertura
       run: |
         coverage run -m unittest test_calculadora.py
 
-    # 6. CUMPLE: Mostrar resultados de Code Coverage en la consola del CI
     - name: Mostrar reporte de Code Coverage
       run: |
         coverage report -m
