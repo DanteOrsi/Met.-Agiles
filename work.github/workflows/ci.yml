@@ -1,3 +1,6 @@
+name: Integracion Continua Calculadora
+
+# Esto le dice a GitHub que corra el workflow cada vez que hacen un push
 on:
   push:
     branches: [ "main" ]
